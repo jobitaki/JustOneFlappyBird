@@ -1,0 +1,19 @@
+// Code that actually simulates bird physics
+
+int * bird_pos = 123; // MMIO port
+
+int time = 0;         // Time since first run
+int velocity = 0;     // Velocity (Y-axis)
+int accel = -10;       // Acceleration (Y-axis)
+
+int main()
+{
+  // Initialize bird_pos to 0
+  *bird_pos = 0;
+
+  while (true)
+  {
+      velocity = accel * time;
+      *bird_pos -= (velocity >> 2) * time;
+  }
+}
