@@ -16,7 +16,7 @@ int main()
   // Init bird position
   *bird_pos = 0;
 
-  while (true)
+  while (1)
   {
     // Check for button press
     if (*button_reg == 1)
