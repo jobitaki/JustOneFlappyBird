@@ -5,7 +5,7 @@ module tb ();
   logic clock;
   logic rst;
 
-  processor DUT (.*);
+  uniprocessor DUT (.*);
 
   initial begin
     clock = 0;
@@ -13,6 +13,7 @@ module tb ();
   end
 
   initial begin
+    $readmemh("memory.hex", DUT.u_memory.u_memory.mem);
     rst <= 1;
     @(posedge clock);
     rst <= 0;
