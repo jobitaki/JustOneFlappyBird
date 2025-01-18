@@ -1,5 +1,4 @@
 `default_nettype none
-parameter int SIM_MEM_SIZE = 1000;
 
 module memory (
     input  logic        clock,
@@ -25,24 +24,24 @@ endmodule : memory
   ena and enb enable any memory accesses
   wea and web are read when 0 and write when 1
  */
-module blk_memory (
-  input  logic         clka,
-  input  logic         ena,
-  input  logic         wea,            // 1-bit write enable for port A
-  input  logic [13:0]  addra,          // 14-bit address for port A
-  input  logic [31:0]  dina,           // 32-bit data input for port A
-  output logic [31:0]  douta,          // 32-bit data output for port A
-  input  logic         clkb,
-  input  logic         enb,
-  input  logic         web,            // 1-bit write enable for port B
-  input  logic [13:0]  addrb,          // 14-bit address for port B
-  input  logic [31:0]  dinb,           // 32-bit data input for port B
-  output logic [31:0]  doutb           // 32-bit data output for port B
-);
-
-  blk_mem_wrapper block_memory_wrapper(.*);
-
-endmodule: blk_memory
+// module blk_memory (
+//   input  logic         clka,
+//   input  logic         ena,
+//   input  logic         wea,            // 1-bit write enable for port A
+//   input  logic [13:0]  addra,          // 14-bit address for port A
+//   input  logic [31:0]  dina,           // 32-bit data input for port A
+//   output logic [31:0]  douta,          // 32-bit data output for port A
+//   input  logic         clkb,
+//   input  logic         enb,
+//   input  logic         web,            // 1-bit write enable for port B
+//   input  logic [13:0]  addrb,          // 14-bit address for port B
+//   input  logic [31:0]  dinb,           // 32-bit data input for port B
+//   output logic [31:0]  doutb           // 32-bit data output for port B
+// );
+// 
+//   blk_mem_wrapper block_memory_wrapper(.*);
+// 
+// endmodule: blk_memory
 
 module memory_simulation (
   input  logic        clock,
@@ -58,11 +57,18 @@ module memory_simulation (
   input  logic        we_2
 );
 
+  parameter int SIM_MEM_SIZE = 1000;
+
   logic [31:0] mem[SIM_MEM_SIZE];
+
+  logic [31:0] dout_temp_1, dout_temp_2;
   
-  always_comb begin
-      if (en_1 && !we_1) dout_1 = mem[addr_1];
-      if (en_2 && !we_2) dout_2 = mem[addr_2];
+  always_ff @(posedge clock) begin
+      if (en_1 && !we_1) dout_temp_1 <= mem[addr_1];
+      if (en_2 && !we_2) dout_temp_2 <= mem[addr_2];
+
+      dout_1 <= dout_temp_1;
+      dout_2 <= dout_temp_2;
   end
 
   always_ff @(posedge clock) begin
@@ -71,10 +77,10 @@ module memory_simulation (
   end
 
   initial begin
-    // int fd = $fopen("memory.hex", "r");
-    // int status;
-    // logic [$clog2(SIM_MEM_SIZE+1):0] addr;
-    // logic [31:0] mem_line;
+    // static int fd = $fopen("memory.hex", "r");
+    // static int status;
+    // static logic [$clog2(SIM_MEM_SIZE+1):0] addr;
+    // static logic [31:0] mem_line;
     // if (fd) begin
     //   addr = '0;
     //   while (!$feof(
@@ -93,7 +99,8 @@ module memory_simulation (
     // end
 
     // $fclose(fd);
-    //$readmemh("memory.hex", mem);
+
+    $readmemh("memory.hex", mem);
   end
 
 endmodule : memory_simulation

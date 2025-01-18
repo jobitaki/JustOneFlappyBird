@@ -8,12 +8,16 @@ module tb ();
   uniprocessor DUT (.*);
 
   initial begin
+    $dumpfile("tb.vcd");
+    $dumpvars(0,tb);
+  end
+
+  initial begin
     clock = 0;
     forever #1 clock <= ~clock;
   end
 
   initial begin
-    $readmemh("memory.hex", DUT.u_memory.u_memory.mem);
     rst <= 1;
     @(posedge clock);
     rst <= 0;
