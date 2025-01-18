@@ -57,11 +57,14 @@ module memory_simulation (
   input  logic        we_2
 );
 
-  parameter int SIM_MEM_SIZE = 1000;
+  parameter int SIM_MEM_SIZE = 65536;
 
   logic [31:0] mem[SIM_MEM_SIZE];
 
   logic [31:0] dout_temp_1, dout_temp_2;
+
+  logic [31:0] probe;
+  assign probe = mem[4096];
   
   always_ff @(posedge clock) begin
       if (en_1 && !we_1) dout_temp_1 <= mem[addr_1];
@@ -77,30 +80,7 @@ module memory_simulation (
   end
 
   initial begin
-    // static int fd = $fopen("memory.hex", "r");
-    // static int status;
-    // static logic [$clog2(SIM_MEM_SIZE+1):0] addr;
-    // static logic [31:0] mem_line;
-    // if (fd) begin
-    //   addr = '0;
-    //   while (!$feof(
-    //       fd
-    //   )) begin
-    //     status = $fscanf(fd, "%h", mem_line);
-    //     if (status == 1) begin
-    //       mem[{addr, 2'b00}] = mem_line;
-    //       addr += 1;
-    //     end
-    //   end
-    // end else begin
-    //   $display("File not found");
-    //   $fflush();
-    //   $finish(2);
-    // end
-
-    // $fclose(fd);
-
-    $readmemh("memory.hex", mem);
+    $readmemh("even_simpler.hex", mem);
   end
 
 endmodule : memory_simulation

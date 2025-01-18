@@ -1,0 +1,41 @@
+// Game code that does simple linear motion of bird
+
+// How it works:
+// 
+// The bird constantly falls down at a constant rate.
+// When the button input is pressed, it translates up.
+// some amount of time.
+// 
+// The button comes from MMIO register.
+
+int * bird_pos = 4096;   // MMIO port storing bird position
+
+int main()
+{
+  int timer = 0;
+  int go_up = 1;
+
+  // Init bird position
+  *bird_pos = 200;
+
+  while (1)
+  {
+    if (timer == 5)
+    {
+      go_up = 1 - go_up;
+      timer = 0;
+    }
+
+    // Make the bird go up
+    if (go_up)
+    {
+      *bird_pos += 1;
+    }
+    else
+    {
+      *bird_pos -= 1;
+    }
+
+    timer++;
+  }
+}

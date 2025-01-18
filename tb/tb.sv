@@ -22,7 +22,7 @@ module tb ();
     @(posedge clock);
     rst <= 0;
 
-    for (int i = 0; i < 1000; i++) begin
+    for (int i = 0; i < 1000000; i++) begin
       @(posedge clock);
     end
 
