@@ -8,8 +8,8 @@
 // 
 // The button comes from MMIO register.
 
-int * bird_pos = 123;   // MMIO port storing bird position
-int * button_reg = 456; // MMIO port storing button press info
+int * bird_pos = 4096;   // MMIO port storing bird position (0x1000)
+int * button_reg = 4095; // MMIO port storing button press info (0xFFF)
 
 int main()
 {
@@ -23,12 +23,18 @@ int main()
     {
       // Make the bird go up
       *bird_pos += 5;
+
+      // Reset button register
+      *button_reg = 0;
     }
 
     // Delay
     for (int i = 0; i < 10; i++) {}
 
     // Update bird position
-    bird_pos -= 1;
+    if (*bird_pos != 0)
+    {
+      *bird_pos -= 1;
+    }
   }
 }
