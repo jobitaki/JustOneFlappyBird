@@ -1,8 +1,9 @@
 `default_nettype none
 
 module uniprocessor (
-    input logic clock,
-    input logic rst
+    input  logic        clock,
+    input  logic        rst,
+    output logic [31:0] mmio_out
 );
 
   logic [31:0] addr_1, data_1_in, data_1_out;
@@ -34,18 +35,19 @@ module uniprocessor (
   );
 
   memory u_memory (
-      .clock (clock),
-      .rst(rst),
-      .addr_1(addr_1),
-      .din_1 (data_1_in),
-      .dout_1(data_1_out),
-      .we_1  (we_1),
-      .addr_2(addr_2),
-      .din_2 (data_2_in),
-      .dout_2(data_2_out),
-      .en_1  (1'b1),
-      .en_2  (1'b1),
-      .we_2  (1'b0)
+      .clock   (clock),
+      .rst     (rst),
+      .addr_1  (addr_1),
+      .din_1   (data_1_in),
+      .dout_1  (data_1_out),
+      .we_1    (we_1),
+      .addr_2  (addr_2),
+      .din_2   (data_2_in),
+      .dout_2  (data_2_out),
+      .en_1    (1'b1),
+      .en_2    (1'b1),
+      .we_2    (1'b0),
+      .mmio_out(mmio_out)
   );
 
   logic [31:0] PC_in, PC_out;

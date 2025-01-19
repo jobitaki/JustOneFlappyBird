@@ -224,8 +224,6 @@ module positionToColor
         
         end else curr_color = BLUE;
 
-    end
-
     // set RGB based on color
     case (curr_color) 
 
@@ -267,6 +265,7 @@ module positionToColor
         end
 
     endcase
+  end
 
 
 endmodule: positionToColor
