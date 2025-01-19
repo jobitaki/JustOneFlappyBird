@@ -1,4 +1,4 @@
-`default_nettype none
+`default_nettype wire
 
 module memory (
     input  logic        clock,
@@ -74,8 +74,9 @@ module memory (
     // else if (!we_1 && (addr_1 == MMIO_ADDR_2)) dout_1 = mmio_2_out;
     else dout_1 = mem_dout_1;
     
-    // if (!we_2 && (addr_2 == MMIO_ADDR_1)) dout_2 = mmio_1_out;
+    //if (!we_2 && (addr_2 == MMIO_ADDR_1)) dout_2 = mmio_1_out;
     // else if (!we_2 && (addr_2 == MMIO_ADDR_2)) dout_2 = mmio_2_out;
+    //else dout_2 = mem_dout_2;
     dout_2 = mem_dout_2;
   end
 

@@ -1,9 +1,10 @@
-`default_nettype none
+`default_nettype wire
 
 module tb ();
 
   logic clock;
   logic rst;
+  logic [31:0] mmio_out;
 
   uniprocessor DUT (.*);
 

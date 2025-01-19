@@ -1,3 +1,5 @@
+`default_nettype wire
+
 module vga (
     output logic [9:0] v_idx,
     output logic [9:0] h_idx,

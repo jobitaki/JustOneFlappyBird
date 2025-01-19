@@ -1,8 +1,9 @@
-`default_nettype none
+`default_nettype wire
 
 module chip_interface(
     input logic  clock,
     input logic  rst,
+    input logic inverted,
     output       hdmi_clk_n,
     output       hdmi_clk_p,
     output [2:0] hdmi_tx_n,
@@ -31,7 +32,7 @@ module chip_interface(
     .hdmi_clk_n(hdmi_clk_n),
     .hdmi_clk_p(hdmi_clk_p),
     .hdmi_tx_n(hdmi_tx_n),
-    .hdmi_clk_p(hdmi_clk_p)
+    .hdmi_tx_p(hdmi_tx_p)
   );
 
   positionToColor u_positionToColor(
@@ -40,7 +41,8 @@ module chip_interface(
     .bird_y(mmio_out),
     .red(red),
     .green(green),
-    .blue(blue)
+    .blue(blue),
+    .inverted(inverted)
   );
 
 endmodule : chip_interface

@@ -1,20 +1,10 @@
-`default_nettype none
-
-// module for checking if a value is in a range (given low --> low + offset)
-module OffsetCheck
-    #(parameter WIDTH = 16)
-    (input  logic [WIDTH - 1:0] delta, low, val,
-     output logic is_between);
-
-    assign is_between = (val >= low && val <= (low + delta)) ? 1 : 0;
-
-endmodule: OffsetCheck
+`default_nettype wire
 
 // module for converting bird-Y positions to RGB colors to display via VGA
 module positionToColor
-    (input  logic inverted,
-     input  logic [9:0] row,
+    (input  logic [9:0] row,
      input  logic [9:0] col,
+     input logic inverted,
      input  logic [31:0] bird_y,
      output logic [7:0] red, green, blue);
 
@@ -237,10 +227,8 @@ module positionToColor
         end else curr_color = BLUE;
 
     // set RGB based on color
-    case (curr_color) 
-
-        if (~inverted) begin
-
+      if (~inverted) begin
+      case (curr_color) 
             BLACK: begin
                 red = 8'h00;
                 green = 8'h00;
@@ -288,9 +276,9 @@ module positionToColor
                 green = 8'hB0;
                 blue = 8'h1A;
             end
-        
+          endcase
         end else begin
-
+          case(curr_color)
             BLACK: begin
                 red = 8'hFF;
                 green = 8'hFF;
@@ -338,10 +326,10 @@ module positionToColor
                 green = 8'h4F;
                 blue = 8'hE5;
             end
+        endcase
+      end
 
-        end
-
-    endcase
+    
   end
 
 
