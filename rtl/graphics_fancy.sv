@@ -17,7 +17,24 @@ module positionToColor
      input  logic [31:0] bird_y,
      output logic [7:0] red, green, blue);
 
+    // create row checks
+    logic is_r1, is_r2, is_r3, is_r4, is_r5, is_r6, is_r7, is_r8, is_r9, is_r10, 
+          is_r11, is_r12;
+
+    logic is_top_pipe, is_top_flange, is_bottom_flange, is_bottom_pipe;
+
+    // create columnn group checks
+    logic is_cg1, is_cg2, is_cg3, is_cg4, is_cg5, is_cg6, is_cg7, is_cg8, 
+          is_cg9, is_cg10, is_cg11, is_cg12, is_cg13, is_cg14, is_cg15, is_cg16, 
+          is_cg17, is_cg18, is_cg19;
+
     // init horiz. and vert. checks 
+    assign is_top_pipe = (row <= 10'd120) && (10'd305 <= col && col <= 10'd335);
+    assign is_top_flange = (10'd120 <= row && row <= 10'd150) && (10'd295 <= col && col <= 10'd345);
+
+    assign is_bottom_flange = (10'd330 <= row && row <= 10'd360) && (10'd295 <= col && col <= 10'd345);
+    assign is_bottom_pipe = (row >= 10'd360) && (10'd305 <= col && col <= 10'd335);
+
     assign is_r1  = (row == bird_y - 6);
     assign is_r2  = (row == bird_y - 5);
     assign is_r3  = (row == bird_y - 4);
@@ -55,23 +72,17 @@ module positionToColor
     assign is_cg17 = (10'd326 <= col && col <= 10'd326);
     assign is_cg18 = (10'd327 <= col && col <= 10'd327);
     assign is_cg19 = (10'd328 <= col && col <= 10'd328);
-    
-    // create row checks
-    logic is_r1, is_r2, is_r3, is_r4, is_r5, is_r6, is_r7, is_r8, is_r9, is_r10, 
-          is_r11, is_r12;
-
-    // create columnn group checks
-    logic is_cg1, is_cg2, is_cg3, is_cg4, is_cg5, is_cg6, is_cg7, is_cg8, 
-          is_cg9, is_cg10, is_cg11, is_cg12, is_cg13, is_cg14, is_cg15, is_cg16, 
-          is_cg17, is_cg18, is_cg19;
 
     // get colors:
-    enum logic [2:0] {BLACK, RED, ORANGE, YELLOW, WHITE, BLUE} curr_color;
+    enum logic [2:0] {BLACK, RED, ORANGE, YELLOW, 
+                      WHITE, BLUE, GREEN, DGREEN} curr_color;
     
     // start by casing on row
     always_comb begin
 
-        if (is_r1) begin
+        if (is_top_flange || is_bottom_flange)  curr_color = DGREEN
+        else if (is_top_pipe || is_bottom_pipe) curr_color = GREEN;
+        end else if (is_r1) begin
 
             if (is_cg9) curr_color = BLACK; 
             else if (is_cg12) curr_color = BLACK;
@@ -262,6 +273,18 @@ module positionToColor
             red = 8'h00;
             green = 8'hCC;
             blue = 8'hFF;
+        end
+
+        GREEN: begin
+            red = 8'h37;
+            green = 8'hEC;
+            blue = 8'h1E;
+        end
+
+        DGREEN: begin
+            red = 8'h2C;
+            green = 8'hB0;
+            blue = 8'h1A;
         end
 
     endcase
