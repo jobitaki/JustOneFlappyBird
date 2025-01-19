@@ -401,34 +401,34 @@ module BusDriver
 endmodule: BusDriver
 
 
-// memory
-module Memory
-    #(parameter AW = 1,
-                W  = 2**AW,
-                DW = 4)
-    (input logic re, we, clock,
-     input logic [AW - 1: 0] addr,
-     inout tri [DW - 1: 0] data);
+// // memory
+// module Memory
+//     #(parameter AW = 1,
+//                 W  = 2**AW,
+//                 DW = 4)
+//     (input logic re, we, clock,
+//      input logic [AW - 1: 0] addr,
+//      inout tri [DW - 1: 0] data);
 
-    // create internal variables for the memory array, read data
-    logic [DW - 1:0] M[W];
-    logic [DW - 1:0] rData;
+//     // create internal variables for the memory array, read data
+//     logic [DW - 1:0] M[W];
+//     logic [DW - 1:0] rData;
 
-    assign rData = M[addr];
+//     assign rData = M[addr];
 
-    // if writing, write to memory location
-    always_ff @(posedge clock) begin
+//     // if writing, write to memory location
+//     always_ff @(posedge clock) begin
 
-        if (we) begin
-            M[addr] <= data;
-        end
+//         if (we) begin
+//             M[addr] <= data;
+//         end
 
-    end
+//     end
 
-    // assign I/O data
-    assign data = (re) ? rData : 'z;
+//     // assign I/O data
+//     assign data = (re) ? rData : 'z;
 
-endmodule: Memory
+// endmodule: Memory
 
 // ----- from lab 4 -----
 
