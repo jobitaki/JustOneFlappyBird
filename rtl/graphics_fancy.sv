@@ -12,7 +12,8 @@ endmodule: OffsetCheck
 
 // module for converting bird-Y positions to RGB colors to display via VGA
 module positionToColor
-    (input  logic [9:0] row,
+    (input  logic inverted,
+     input  logic [9:0] row,
      input  logic [9:0] col,
      input  logic [31:0] bird_y,
      output logic [7:0] red, green, blue);
@@ -80,9 +81,9 @@ module positionToColor
     // start by casing on row
     always_comb begin
 
-        if (is_top_flange || is_bottom_flange)  curr_color = DGREEN
+        if (is_top_flange || is_bottom_flange)  curr_color = DGREEN;
         else if (is_top_pipe || is_bottom_pipe) curr_color = GREEN;
-        end else if (is_r1) begin
+        else if (is_r1) begin
 
             if (is_cg9) curr_color = BLACK; 
             else if (is_cg12) curr_color = BLACK;
@@ -238,53 +239,106 @@ module positionToColor
     // set RGB based on color
     case (curr_color) 
 
-        BLACK: begin
-            red = 8'h00;
-            green = 8'h00;
-            blue = 8'h00;
-        end
+        if (~inverted) begin
 
+            BLACK: begin
+                red = 8'h00;
+                green = 8'h00;
+                blue = 8'h00;
+            end
 
-        RED: begin
-            red = 8'hCF;
-            green = 8'h17;
-            blue = 8'h00;
-        end
+            RED: begin
+                red = 8'hCF;
+                green = 8'h17;
+                blue = 8'h00;
+            end
 
-        ORANGE: begin
-            red = 8'hFF;
-            green = 8'h60;
-            blue = 8'h00;
-        end
+            ORANGE: begin
+                red = 8'hFF;
+                green = 8'h60;
+                blue = 8'h00;
+            end
 
-        YELLOW: begin
-            red = 8'hFF;
-            green = 8'hE7;
-            blue = 8'h00;
-        end
+            YELLOW: begin
+                red = 8'hFF;
+                green = 8'hE7;
+                blue = 8'h00;
+            end
 
-        WHITE: begin
-            red = 8'hFF;
-            green = 8'hFF;
-            blue = 8'hFF;
-        end
+            WHITE: begin
+                red = 8'hFF;
+                green = 8'hFF;
+                blue = 8'hFF;
+            end
 
-        BLUE: begin
-            red = 8'h00;
-            green = 8'hCC;
-            blue = 8'hFF;
-        end
+            BLUE: begin
+                red = 8'h00;
+                green = 8'hCC;
+                blue = 8'hFF;
+            end
 
-        GREEN: begin
-            red = 8'h37;
-            green = 8'hEC;
-            blue = 8'h1E;
-        end
+            GREEN: begin
+                red = 8'h37;
+                green = 8'hEC;
+                blue = 8'h1E;
+            end
 
-        DGREEN: begin
-            red = 8'h2C;
-            green = 8'hB0;
-            blue = 8'h1A;
+            DGREEN: begin
+                red = 8'h2C;
+                green = 8'hB0;
+                blue = 8'h1A;
+            end
+        
+        end else begin
+
+            BLACK: begin
+                red = 8'hFF;
+                green = 8'hFF;
+                blue = 8'hFF;
+            end
+
+            RED: begin
+                red = 8'h30;
+                green = 8'hE8;
+                blue = 8'hFF;
+            end
+
+            ORANGE: begin
+                red = 8'h00;
+                green = 8'h9F;
+                blue = 8'hFF;
+            end
+
+            YELLOW: begin
+                red = 8'h00;
+                green = 8'h18;
+                blue = 8'hFF;
+            end
+
+            WHITE: begin
+                red = 8'h00;
+                green = 8'h00;
+                blue = 8'h00;
+            end
+
+            BLUE: begin
+                red = 8'hFF;
+                green = 8'h33;
+                blue = 8'h00;
+            end
+
+            GREEN: begin
+                red = 8'hC8;
+                green = 8'h13;
+                blue = 8'hE1;
+            end
+
+            DGREEN: begin
+                red = 8'hD3;
+                green = 8'h4F;
+                blue = 8'hE5;
+            end
+
         end
 
     endcase
