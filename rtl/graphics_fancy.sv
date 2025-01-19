@@ -34,27 +34,27 @@ module positionToColor
     assign is_r12 = (row == bird_y + 5);
 
 
-    assign is_cg1  = (10'd311 <= col && col >= 10'd311);
-    assign is_cg2  = (10'd312 <= col && col >= 10'd312);
-    assign is_cg3  = (10'd313 <= col && col >= 10'd317);
-    assign is_cg4  = (10'd314 <= col && col >= 10'd314);
-    assign is_cg5  = (10'd315 <= col && col >= 10'd319);
-    assign is_cg6  = (10'd315 <= col && col >= 10'd315);
-    assign is_cg7  = (10'd316 <= col && col >= 10'd316);
-    assign is_cg8  = (10'd317 <= col && col >= 10'd317);
-    assign is_cg9  = (10'd318 <= col && col >= 10'd319);
-    assign is_cg10 = (10'd318 <= col && col >= 10'd318);
-    assign is_cg11 = (10'd319 <= col && col >= 10'd319);
+    assign is_cg1  = (10'd312 <= col && col <= 10'd312);
+    assign is_cg2  = (10'd313 <= col && col <= 10'd313);
+    assign is_cg3  = (10'd313 <= col && col <= 10'd317);
+    assign is_cg4  = (10'd314 <= col && col <= 10'd314);
+    assign is_cg5  = (10'd315 <= col && col <= 10'd319);
+    assign is_cg6  = (10'd315 <= col && col <= 10'd315);
+    assign is_cg7  = (10'd316 <= col && col <= 10'd316);
+    assign is_cg8  = (10'd317 <= col && col <= 10'd317);
+    assign is_cg9  = (10'd318 <= col && col <= 10'd319);
+    assign is_cg10 = (10'd318 <= col && col <= 10'd318);
+    assign is_cg11 = (10'd319 <= col && col <= 10'd319);
 
-    assign is_cg12 = (10'd320 <= col && col >= 10'd320);
+    assign is_cg12 = (10'd320 <= col && col <= 10'd320);
 
-    assign is_cg13 = (10'd321 <= col && col >= 10'd321);
-    assign is_cg14 = (10'd322 <= col && col >= 10'd323);
-    assign is_cg15 = (10'd324 <= col && col >= 10'd324);
-    assign is_cg16 = (10'd325 <= col && col >= 10'd325);
-    assign is_cg17 = (10'd326 <= col && col >= 10'd326);
-    assign is_cg18 = (10'd327 <= col && col >= 10'd327);
-    assign is_cg19 = (10'd328 <= col && col >= 10'd328);
+    assign is_cg13 = (10'd321 <= col && col <= 10'd321);
+    assign is_cg14 = (10'd322 <= col && col <= 10'd323);
+    assign is_cg15 = (10'd324 <= col && col <= 10'd324);
+    assign is_cg16 = (10'd325 <= col && col <= 10'd325);
+    assign is_cg17 = (10'd326 <= col && col <= 10'd326);
+    assign is_cg18 = (10'd327 <= col && col <= 10'd327);
+    assign is_cg19 = (10'd328 <= col && col <= 10'd328);
     
     // create row checks
     logic is_r1, is_r2, is_r3, is_r4, is_r5, is_r6, is_r7, is_r8, is_r9, is_r10, 
