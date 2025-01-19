@@ -21,6 +21,23 @@ module memory (
   logic [31:0] mem_dout_1, mem_dout_2;
   logic        mem_we_1, mem_we_2;
 
+  /*
+  blk_mem_gen_0 blk_memory (
+    .clka(clka),    // input wire clka
+    .ena(ena),      // input wire ena
+    .wea(wea),      // input wire [0 : 0] wea
+    .addra(addra),  // input wire [13 : 0] addra
+    .dina(dina),    // input wire [31 : 0] dina
+    .douta(douta),  // output wire [31 : 0] douta
+    .clkb(clkb),    // input wire clkb
+    .enb(enb),      // input wire enb
+    .web(web),      // input wire [0 : 0] web
+    .addrb(addrb),  // input wire [13 : 0] addrb
+    .dinb(dinb),    // input wire [31 : 0] dinb
+    .doutb(doutb)  // output wire [31 : 0] doutb
+  );
+  */
+
   memory_simulation u_memory (
       .clock (clock),
       .addr_1(addr_1),
@@ -42,7 +59,7 @@ module memory (
     if (!we_1 && (addr_1 == MMIO_ADDR_1)) begin
       dout_1 = mmio_1_out;
     end else if (!we_1 && (addr_1 == MMIO_ADDR_2)) begin
-      dout_1 = mmio_1_out;
+      dout_1 = mmio_2_out;
     end else begin
       dout_1 = mem_dout_1;
     end
@@ -73,31 +90,6 @@ module memory (
   end
 
 endmodule : memory
-
-
-/*
-  Clka and Clkb should both be the same shared clock
-  ena and enb enable any memory accesses
-  wea and web are read when 0 and write when 1
- */
-// module blk_memory (
-//   input  logic         clka,
-//   input  logic         ena,
-//   input  logic         wea,            // 1-bit write enable for port A
-//   input  logic [13:0]  addra,          // 14-bit address for port A
-//   input  logic [31:0]  dina,           // 32-bit data input for port A
-//   output logic [31:0]  douta,          // 32-bit data output for port A
-//   input  logic         clkb,
-//   input  logic         enb,
-//   input  logic         web,            // 1-bit write enable for port B
-//   input  logic [13:0]  addrb,          // 14-bit address for port B
-//   input  logic [31:0]  dinb,           // 32-bit data input for port B
-//   output logic [31:0]  doutb           // 32-bit data output for port B
-// );
-//
-//   blk_mem_wrapper block_memory_wrapper(.*);
-//
-// endmodule: blk_memory
 
 module memory_simulation (
     input  logic        clock,
