@@ -49,3 +49,17 @@ Our system architecture consists of the processor and the memory communicating b
 </p>
 
 ## Photos!
+
+<p align="center">
+  <kbd>
+    <img src="media/group1.jpeg" alt="group photo 1" width="500" align="center" border="1"/>
+  </kbd>
+</p>
+
+<p align="center">(above) left to right: John Alacce, David Chan, Kody Liang, Jaehyun Lim</p> 
+
+<p align="center">
+  <kbd>
+    <img src="media/group2.jpeg" alt="group photo 2" width="500" align="center" border="1"/>
+  </kbd>
+</p>
